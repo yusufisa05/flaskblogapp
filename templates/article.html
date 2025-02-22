@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% if article %}
+<h4>{{article.title}}</h4>
+<hr>
+Yazar : {{article.author}}
+<hr>
+Tarih : {{article.created_date}}
+<hr>
+{{article.content}}
+{% else %}
+<div class="alert alert-warning">Böyle bir makale bulunmuyor.</div>
+{% endif %}
+<hr>
+<form method="post">
+    {{ form.commentContent(class="form-control", placeholder="Yorum yap...") }}
+    <button type="submit" class="btn btn-primary mt-2">Yorum Yap</button>
+</form>
+<h3>Yorumlar</h3>
+{% for comment in comments %}
+ <div class="comment">
+  <hr>
+        <strong>{{ comment["user_comment"] }}</strong>  <!-- Yorum yapan kişi -->
+        <p>{{ comment["comment"] }}</p>  <!-- Yorum içeriği -->
+        <small>{{ comment["time_ago"] }}</small>  <!-- "5 gün önce" gibi gösterim -->
+    </div>
+   
+{% endfor %}
+
+{% endblock body %}
